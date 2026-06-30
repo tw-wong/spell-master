@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { Pressable, Text, View, StyleSheet } from "react-native";
 import { useRouter } from "expo-router";
 import { Screen } from "@/components/Screen";
@@ -16,8 +15,6 @@ export function PracticeScreen() {
   const { week, index, setIndex } = useSession();
   const item = week.words[index];
   const last = week.words.length - 1;
-
-  useEffect(() => { speak(item.word); }, [index, item.word]);
 
   return (
     <Screen>

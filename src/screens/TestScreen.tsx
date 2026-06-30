@@ -30,7 +30,6 @@ export function TestScreen() {
   useEffect(() => {
     setTiles(buildTileBank(target));
     setAnswer(""); setAttempts(0); setResult(null); setUsedIdx([]);
-    speak(target);
   }, [index, target]);
 
   const showHint = attempts >= 2 && result !== "correct";

@@ -6,7 +6,7 @@ React Native + Expo (SDK 54), runs in **Expo Go**.
 ## Run
 
 ```bash
-nvm use 20.19.6        # SDK 54 needs Node 20+
+nvm use 20.19.6        # SDK 54 needs Node 20.19.4+ (verified on 20.19.6)
 npm install
 npx expo start         # scan the QR with Expo Go
 ```

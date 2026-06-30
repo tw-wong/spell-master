@@ -1,12 +1,12 @@
 # Spell Master (v1)
 
 A warm, offline spelling app for primary-school children — **listen, practise, test**.
-React Native + Expo (SDK 55), runs in **Expo Go**.
+React Native + Expo (SDK 54), runs in **Expo Go**.
 
 ## Run
 
 ```bash
-nvm use 20.19.6        # SDK 55 needs Node 20+
+nvm use 20.19.6        # SDK 54 needs Node 20+
 npm install
 npx expo start         # scan the QR with Expo Go
 ```

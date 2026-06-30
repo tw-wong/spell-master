@@ -110,17 +110,17 @@ export function TestScreen() {
       </View>
 
       <View style={styles.actions}>
-        <IconButton tone="soft" label="Delete a letter" onPress={backspace} disabled={!answer || result === "correct"}>
+        <IconButton tone="soft" size="lg" label="Delete a letter" onPress={backspace} disabled={!answer || result === "correct"}>
           <Icon name="delete" size={24} color={theme.color.brand} />
         </IconButton>
         <View style={{ flex: 1 }}>
           {result === "correct" ? (
-            <Button variant="primary" size="md" fullWidth onPress={advance}
+            <Button variant="primary" size="lg" fullWidth onPress={advance}
               iconRight={<Icon name="arrow-right" size={22} color="#fff" />}>
               {index < last ? "Next word" : "All done!"}
             </Button>
           ) : (
-            <Button variant="success" size="md" fullWidth onPress={check} disabled={answer.length === 0}>
+            <Button variant="success" size="lg" fullWidth onPress={check} disabled={answer.length === 0}>
               Check it
             </Button>
           )}

@@ -8,9 +8,13 @@ import { useSession } from "@/state/SessionContext";
 import { weeks, currentWeekNumber, hasDictation, dictationCount } from "@/data/words";
 import { theme } from "@/theme/tokens";
 
-function Chip({ bg, fg, icon, label }: { bg: string; fg: string; icon: ReactNode; label?: string }) {
+function Chip({ bg, fg, icon, label, a11yLabel }: { bg: string; fg: string; icon: ReactNode; label?: string; a11yLabel?: string }) {
   return (
-    <View style={[styles.chip, { backgroundColor: bg, paddingHorizontal: label === undefined ? 6 : 8 }]}>
+    <View
+      accessible={a11yLabel !== undefined}
+      accessibilityLabel={a11yLabel}
+      style={[styles.chip, { backgroundColor: bg, paddingHorizontal: label === undefined ? 6 : 8 }]}
+    >
       {icon}
       {label !== undefined ? <Text style={[styles.chipText, { color: fg }]}>{label}</Text> : null}
     </View>
@@ -54,6 +58,7 @@ export function WeekPicker() {
                     )}
                     {isCurrent && (
                       <Chip bg={theme.color.accentTintStrong} fg={theme.color.accentLedge}
+                        a11yLabel="This week"
                         icon={<Icon name="star" size={14} color={theme.color.accentLedge} />} />
                     )}
                   </View>

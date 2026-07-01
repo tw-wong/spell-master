@@ -1,12 +1,25 @@
+import { ReactNode } from "react";
 import { Pressable, ScrollView, Text, View, StyleSheet } from "react-native";
 import { useRouter } from "expo-router";
 import { Screen } from "@/components/Screen";
 import { Card } from "@/components/Card";
-import { Badge } from "@/components/Badge";
 import { Icon } from "@/components/Icon";
 import { useSession } from "@/state/SessionContext";
-import { weeks, currentWeekNumber } from "@/data/words";
+import { weeks, currentWeekNumber, hasDictation, dictationCount } from "@/data/words";
 import { theme } from "@/theme/tokens";
+
+function Chip({ bg, fg, icon, label, a11yLabel }: { bg: string; fg: string; icon: ReactNode; label?: string; a11yLabel?: string }) {
+  return (
+    <View
+      accessible={a11yLabel !== undefined}
+      accessibilityLabel={a11yLabel}
+      style={[styles.chip, { backgroundColor: bg, paddingHorizontal: label === undefined ? 6 : 8 }]}
+    >
+      {icon}
+      {label !== undefined ? <Text style={[styles.chipText, { color: fg }]}>{label}</Text> : null}
+    </View>
+  );
+}
 
 export function WeekPicker() {
   const router = useRouter();
@@ -30,16 +43,26 @@ export function WeekPicker() {
           return (
             <Pressable key={w.week} onPress={() => select(w.week)}>
               <Card tone={isSelected ? "tint" : "paper"} elevation={isSelected ? "none" : "sm"} pad="md"
-                style={{ borderColor: isSelected ? theme.color.brand : theme.color.border, flexDirection: "row", alignItems: "center", gap: 14 }}>
+                style={StyleSheet.flatten([styles.card, { borderColor: isSelected ? theme.color.brand : theme.color.border }])}>
                 <View style={[styles.num, { backgroundColor: isSelected ? theme.color.brand : theme.color.brandTint }]}>
                   <Text style={[styles.numText, { color: isSelected ? "#fff" : theme.color.brand }]}>{w.week}</Text>
                 </View>
-                <View style={{ flex: 1 }}>
-                  <Text style={styles.weekTheme}>{w.theme}</Text>
-                  <Text style={styles.weekCount}>{w.words.length} words</Text>
+                <View style={{ flex: 1, minWidth: 0 }}>
+                  <Text style={styles.weekTheme} numberOfLines={1}>{w.theme}</Text>
+                  <View style={styles.chipRow}>
+                    <Chip bg={theme.color.tint} fg={theme.color.brandLedge}
+                      icon={<Icon name="pencil" size={14} color={theme.color.brand} />} label={String(w.words.length)} />
+                    {hasDictation(w.week) && (
+                      <Chip bg={theme.color.infoTint} fg={theme.color.info}
+                        icon={<Icon name="ear" size={14} color={theme.color.info} />} label={String(dictationCount(w.week))} />
+                    )}
+                    {isCurrent && (
+                      <Chip bg={theme.color.accentTintStrong} fg={theme.color.accentLedge}
+                        a11yLabel="This week"
+                        icon={<Icon name="star" size={14} color={theme.color.accentLedge} />} />
+                    )}
+                  </View>
                 </View>
-                {isCurrent && <Badge tone="success">This week</Badge>}
-                {isSelected && !isCurrent && <Icon name="check" size={22} color={theme.color.brand} />}
               </Card>
             </Pressable>
           );
@@ -54,8 +77,11 @@ const styles = StyleSheet.create({
   close: { width: 44, height: 44, borderRadius: 999, borderWidth: 2, borderColor: theme.color.border, backgroundColor: theme.color.card, alignItems: "center", justifyContent: "center" },
   title: { fontFamily: theme.font.display.bold, fontSize: 24, color: theme.color.textStrong },
   subtitle: { fontFamily: theme.font.body.semibold, fontSize: 14, color: theme.color.textMuted, marginBottom: 14 },
+  card: { height: 84, flexDirection: "row", alignItems: "center", gap: 14 },
   num: { width: 48, height: 48, borderRadius: theme.radius.md, alignItems: "center", justifyContent: "center" },
   numText: { fontFamily: theme.font.display.bold, fontSize: 18 },
-  weekTheme: { fontFamily: theme.font.display.semibold, fontSize: 18, color: theme.color.textStrong },
-  weekCount: { fontFamily: theme.font.body.bold, fontSize: 13, color: theme.color.textMuted, marginTop: 2 },
+  weekTheme: { fontFamily: theme.font.display.semibold, fontSize: 18, color: theme.color.textStrong, lineHeight: 20 },
+  chipRow: { flexDirection: "row", alignItems: "center", gap: 6, marginTop: 7 },
+  chip: { flexDirection: "row", alignItems: "center", gap: 4, borderRadius: theme.radius.pill, paddingVertical: 3 },
+  chipText: { fontFamily: theme.font.body.black, fontSize: 11.5 },
 });

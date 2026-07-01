@@ -38,3 +38,21 @@ const CURRENT_INDEX = 2; // Week 12. Date-derivation is a later enhancement (PRD
 export const currentWeekNumber = weeks[CURRENT_INDEX].week;
 export const getCurrentWeek = (): Week => weeks[CURRENT_INDEX];
 export const getWeek = (n: number): Week => weeks.find((w) => w.week === n) ?? weeks[CURRENT_INDEX];
+
+export type DictationSentence = { text: string; focus: string };
+
+const DICTATION: Record<number, DictationSentence[]> = {
+  12: [
+    { text: "On Thursday, I go swimming.", focus: "Day names start with a capital letter." },
+    { text: "We saw a beautiful rainbow.", focus: "Don't forget the full stop." },
+    { text: "My friend has a new bike.", focus: "Start the sentence with a capital." },
+  ],
+  11: [
+    { text: "The knight climbed the hill.", focus: "Silent letters: kn, mb." },
+    { text: "Please listen to your teacher.", focus: "End with a full stop." },
+  ],
+};
+
+export const getDictation = (n: number): DictationSentence[] => DICTATION[n] ?? DICTATION[12];
+export const hasDictation = (n: number): boolean => !!DICTATION[n];
+export const dictationCount = (n: number): number => DICTATION[n]?.length ?? 0;

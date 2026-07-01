@@ -1,7 +1,7 @@
 import {
   Volume2, RotateCcw, Play, ChevronLeft, ChevronRight, ChevronDown,
   Pencil, Lightbulb, PartyPopper, Delete, Check, X, ArrowRight,
-  CalendarDays, Sparkles, ThumbsUp,
+  CalendarDays, Sparkles, ThumbsUp, Ear, Snail, Type,
 } from "lucide-react-native";
 
 const MAP = {
@@ -10,6 +10,7 @@ const MAP = {
   pencil: Pencil, lightbulb: Lightbulb, "party-popper": PartyPopper, delete: Delete,
   check: Check, x: X, "arrow-right": ArrowRight, "calendar-days": CalendarDays,
   sparkles: Sparkles, "thumbs-up": ThumbsUp,
+  ear: Ear, snail: Snail, type: Type,
 } as const;
 
 export type IconName = keyof typeof MAP;

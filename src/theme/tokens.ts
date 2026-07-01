@@ -40,6 +40,7 @@ export const theme = {
     accent: palette.gold400,
     accentStrong: palette.gold500,
     accentLedge: palette.gold600,
+    accentTint: palette.gold50,
     success: palette.green500,
     successStrong: palette.green600,
     successLedge: palette.green600,

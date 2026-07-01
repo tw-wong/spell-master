@@ -9,6 +9,7 @@ import { ProgressBar } from "@/components/ProgressBar";
 import { Icon } from "@/components/Icon";
 import { useSession } from "@/state/SessionContext";
 import { scoreWeek } from "@/lib/score";
+import { hasDictation, dictationCount } from "@/data/words";
 import { theme } from "@/theme/tokens";
 
 export function HomeScreen() {
@@ -41,6 +42,21 @@ export function HomeScreen() {
         </View>
       </Card>
 
+      {hasDictation(week.week) && (
+        <Pressable onPress={() => router.push("/dictation")}>
+          <Card tone="paper" elevation="sm" style={styles.dictCard}>
+            <View style={styles.dictIcon}>
+              <Icon name="ear" size={22} color={theme.color.brand} />
+            </View>
+            <View style={{ flex: 1 }}>
+              <Text style={styles.dictTitle}>Dictation</Text>
+              <Text style={styles.dictSub}>{dictationCount(week.week)} sentence{dictationCount(week.week) === 1 ? "" : "s"}</Text>
+            </View>
+            <Icon name="chevron-right" size={22} color={theme.color.textMuted} />
+          </Card>
+        </Pressable>
+      )}
+
       <View style={{ flex: 1 }} />
 
       <View style={{ gap: 14 }}>
@@ -70,4 +86,8 @@ const styles = StyleSheet.create({
   theme: { fontFamily: theme.font.display.bold, fontSize: 30, color: "#fff", lineHeight: 32 },
   progressRow: { flexDirection: "row", alignItems: "center", gap: 8, marginTop: 14 },
   learned: { fontFamily: theme.font.body.black, fontSize: 13, color: theme.color.gold300 },
+  dictCard: { marginTop: 14, flexDirection: "row", alignItems: "center", gap: 14 },
+  dictIcon: { width: 44, height: 44, borderRadius: theme.radius.md, backgroundColor: theme.color.brandTint, alignItems: "center", justifyContent: "center" },
+  dictTitle: { fontFamily: theme.font.display.semibold, fontSize: 18, color: theme.color.textStrong },
+  dictSub: { fontFamily: theme.font.body.bold, fontSize: 13, color: theme.color.textMuted, marginTop: 2 },
 });

@@ -1,9 +1,5 @@
-import { View, Text } from "react-native";
+import { DictationResults } from "@/screens/DictationResults";
 
 export default function DictationResultsRoute() {
-  return (
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <Text>Dictation results</Text>
-    </View>
-  );
+  return <DictationResults />;
 }

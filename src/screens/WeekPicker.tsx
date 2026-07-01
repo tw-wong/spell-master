@@ -39,7 +39,7 @@ export function WeekPicker() {
           return (
             <Pressable key={w.week} onPress={() => select(w.week)}>
               <Card tone={isSelected ? "tint" : "paper"} elevation={isSelected ? "none" : "sm"} pad="md"
-                style={[styles.card, { borderColor: isSelected ? theme.color.brand : theme.color.border }] as any}>
+                style={StyleSheet.flatten([styles.card, { borderColor: isSelected ? theme.color.brand : theme.color.border }])}>
                 <View style={[styles.num, { backgroundColor: isSelected ? theme.color.brand : theme.color.brandTint }]}>
                   <Text style={[styles.numText, { color: isSelected ? "#fff" : theme.color.brand }]}>{w.week}</Text>
                 </View>
